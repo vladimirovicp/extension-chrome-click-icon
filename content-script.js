@@ -16,6 +16,9 @@
 // });
 
 chrome.runtime.onMessage.addListener((req, info, cb) =>{
+
+    console.log('123')
+
     if( req.action === "start-script"){
         const allCode = getAllCode();
         navigator.clipboard.writeText(allCode).then(()=>{

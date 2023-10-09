@@ -21,10 +21,16 @@
 chrome.commands.onCommand.addListener((command) => {
     console.log(command);
     if(command === 'start-script'){
-        getCurrentTabId();
-        //console.log(getCurrentTabId())
-        // getCurrentTabId().then((tabId) =>{
-        //     chrome.tabs.sendMessage(tabId, {action: 'start-script'},
+        console.log(command)
+        // chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        //     chrome.tabs.sendMessage(tabs[0].id, {message: 'Hello Background! How are you?'}, function(response) {
+        //         console.log('message from background:', response);
+        //         // Log: {message: 'Hello Tab!, I am doing swell!'}
+        //     });
+        // });
+
+        // getCurrentTabId().then((tab) =>{
+        //     chrome.tabs.sendMessage(tab[0].id, {action: 'start-script'},
         //         (allCode)=>{
         //             console.log(allCode)
         //         });
@@ -32,11 +38,11 @@ chrome.commands.onCommand.addListener((command) => {
     }
 });
 
-async function getCurrentTabId() {
-    let queryOptions = { active: true, currentWindow: true };
-    let [tab] = await chrome.tabs.query(queryOptions);
-    return tab.id;
-}
+// async function getCurrentTabId() {
+//     let queryOptions = { active: true, currentWindow: true };
+//     let [tab] = await chrome.tabs.query(queryOptions);
+//     return tab;
+// }
 
 
 //chrome.browserAction.onClicked.addListener(onExtensionClick);
