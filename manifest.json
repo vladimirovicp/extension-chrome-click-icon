@@ -17,11 +17,12 @@
     }
   ],
   "host_permissions": ["https://www.sgu.ru/*"],
-  "web_accessible_resources": [
-    {
-      "resources": ["content-script.css","execute.js"],
-      "matches": ["https://www.sgu.ru/*"]
-    }
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "webRequest",
+    "background",
+    "activeTab"
   ],
   "commands": {
     "start-script": {

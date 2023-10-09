@@ -1,86 +1,63 @@
-//https://developer.chrome.com/docs/extensions/reference/commands/
 
 
-// chrome.commands.onCommand.addListener(function(command) {
-//     console.log('onCommand event received for message: ', command);
-// });
+//https://developer.chrome.com/docs/extensions/reference/runtime/
+//https://www.youtube.com/watch?v=zNswnpCKuzU
 
 
-// chrome.action.onClicked.addListener((tab) => {
-//     chrome.scripting.executeScript({
-//         target: {tabId: tab.id},
-//         func: contentScriptFunc,
-//         args: ['action'],
-//     });
-// });
-//
-// function contentScriptFunc(name) {
-//     alert(`"${name}" executed`);
-// }
 
 chrome.commands.onCommand.addListener((command) => {
     console.log(command);
-    if(command === 'start-script'){
-        console.log(command)
-        // chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        //     chrome.tabs.sendMessage(tabs[0].id, {message: 'Hello Background! How are you?'}, function(response) {
-        //         console.log('message from background:', response);
-        //         // Log: {message: 'Hello Tab!, I am doing swell!'}
-        //     });
-        // });
 
-        // getCurrentTabId().then((tab) =>{
-        //     chrome.tabs.sendMessage(tab[0].id, {action: 'start-script'},
-        //         (allCode)=>{
-        //             console.log(allCode)
-        //         });
+    if(command === 'start-script'){
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            var activeTab  = tabs[0];
+            console.log('activeTab', activeTab)
+            chrome.tabs.sendMessage(activeTab.id, {msg: "demo"}, function(response) {
+                console.log(response);
+            });
+        });
+
+        // getCurrentTabId().then((tabId) =>{
+        //     //console.log(tabId)
+        //     //id получил
+        //
+        //     chrome.tabs.sendMessage(tabId, {greeting: "start-script"}, function(response) {
+        //         if (chrome.runtime.lastError) {
+        //             console.log("chrome.runtime.lastError " + chrome.runtime.lastError.message);
+        //         }
+        //         console.log("event page got a response " + response);
+        //         //console.log(response.farewell);
+        //
+        //         //alert("event page got a response" + response);
+        //     });
+        //
+        //
+        //     // chrome.tabs.sendMessage(tabId, {greeting: "start-script"}, function(response) {
+        //     //     if (!chrome.runtime.lastError) {
+        //     //         console.log('response', response);
+        //     //     }else{
+        //     //         console.log(chrome.runtime.lastError);
+        //     //     }
+        //     // });
+        //
+        //
+        //     // chrome.tabs.sendMessage(tabId, {action: 'copy-all'},
+        //     //     (allCode)=>{
+        //     //         console.log(allCode)
+        //     //     });
+        //
         // })
+
     }
+
+
 });
 
-// async function getCurrentTabId() {
-//     let queryOptions = { active: true, currentWindow: true };
-//     let [tab] = await chrome.tabs.query(queryOptions);
-//     return tab;
-// }
 
-
-//chrome.browserAction.onClicked.addListener(onExtensionClick);
-
-//chrome.action.onClicked.addListener(onExtensionClick);
-
-// async function onExtensionClick(){
-//     let queryOptions = { active: true, currentWindow: true };
-//     let [tab] = await chrome.tabs.query(queryOptions);
-//     return tab.id;
-// }
-//
-// chrome.action.onClicked.addListener(function (tab) {
-//
-//     console.log(tab)
-//     onExtensionClick();
-//
-//     // chrome.tabs.sendMessage(tabId, {action: 'start'},
-//     //     (allCode)=>{
-//     //         console.log(allCode)
-//     //     });
-//
-// });
-
-// chrome.action.onClicked.addListener(tab => {
-//     // Send a message to the active tab
-//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//         var activeTab = tabs[0];
-//         chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
-//         console.log('onExtensionClick');
-//         onExtensionClick(activeTab);
-//     });
-// });
-
-// chrome.action.onClicked.addListener(tab => {
-//     // Send a message to the active tab
-//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//         var activeTab = tabs[0];
-//         chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
-//     });
-// });
+async function getCurrentTabId() {
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab.id;
+}

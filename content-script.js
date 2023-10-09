@@ -1,45 +1,40 @@
-// chrome.runtime.onMessage.addListener((req, info, cb) =>{
-//     if( req.action === "start-script"){
-//
-//
-//         console.log('!!!!!!!!!');
-//
-//         // const allCode = getAllCode();
-//         //
-//         // navigator.clipboard.writeText(allCode).then(()=>{
-//         //     notify();
-//         //     cb(allCode);
-//         // });
-//
+
+// chrome.runtime.sendMessage(
+//     {message: "hi"},
+//     (response) => {
+//         console.log('response.message ', response.message);
+//     }
+// );
+
+chrome.runtime.onMessage.addListener((message,sender, sendResponse) => {
+        console.log(message);
+        sendResponse({message: "goodbye"});
+        // if (request.greeting == "start-script"){
+        //     sendResponse({farewell: "goodbye"});
+        //     console.log(request.greeting);
+        // }
+    });
+
+// chrome.runtime.onMessage.addListener(
+//     function(request, sender, sendResponse) {
+//         console.log(request);
+//         if (request.greeting == "start-script"){
+//             sendResponse({farewell: "goodbye"});
+//             console.log(request.greeting);
+//         }
+//     });
+
+
+// chrome.runtime.onMessage.addListener(
+//     function(request, sender, sendResponse) {
+//         if(request.greeting === "start-script") console.log('response received', request.payload)
+//         sendResponse({status: "done"});
 //         return true;
 //     }
-// });
-
-chrome.runtime.onMessage.addListener((req, info, cb) =>{
-
-    console.log('123')
-
-    if( req.action === "start-script"){
-        const allCode = getAllCode();
-        navigator.clipboard.writeText(allCode).then(()=>{
-            //notify();
-            console.log('1111111111111111')
-            cb(allCode);
-        });
-        return true;
-    }
-});
-
-function getAllCode(){
-    return [...preEls].map((preEl) => {
-        return preEl.querySelector('code').innerText
-    }).join("");
-}
+// )
 
 
-
-// chrome.runtime.onMessage.addListener((req, info, cb) =>{
-//     if( req.action === "start"){
-//         console.log('start');
-//     }
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//     console.log("content script got a message" + request);
+//     sendResponse("world");
 // });
