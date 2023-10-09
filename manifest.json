@@ -1,0 +1,39 @@
+{
+  "name": "__test__",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "__test__",
+  "icons": {
+    "32": "./icons/icon-32.png",
+    "48": "./icons/icon-48.png",
+    "128": "./icons/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.sgu.ru/*"],
+      "run_at": "document_idle",
+      "all_frame": false,
+      "js": ["content-script.js"]
+    }
+  ],
+  "host_permissions": ["https://www.sgu.ru/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["content-script.css","execute.js"],
+      "matches": ["https://www.sgu.ru/*"]
+    }
+  ],
+  "commands": {
+    "start-script": {
+      "suggested_key": {"default": "Ctrl+Shift+Z"},
+      "description": "Start script"
+    },
+    "toggle-feature": {
+      "suggested_key": { "default": "Ctrl+Shift+Y" },
+      "description": "Send a 'toggle-feature' event to the extension"
+    }
+  },
+  "background":{
+    "service_worker": "background.js"
+  }
+}
