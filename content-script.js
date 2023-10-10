@@ -52,12 +52,15 @@ function stage1(){
                 if (hasStyle === 'height: 910px; left: 0px;') {
                     // Выполнить определенные действия
                     console.log('height: 910px; left: 0px;');
-                    mainMessage();
+                    createMessage();
+                    observerStage1_1.disconnect();
+
                 }
-                if (hasStyle === 'height: 910px; left: -250px;') {
-                    // Выполнить определенные действия
-                    console.log('height: 910px; left: -250px;');
-                }
+                // if (hasStyle === 'height: 910px; left: -250px;') {
+                //     // Выполнить определенные действия
+                //     console.log('height: 910px; left: -250px;');
+                //     removeMessage();
+                // }
             }
         });
     });
@@ -65,11 +68,18 @@ function stage1(){
 }
 
 
-function mainMessage(){
+function createMessage(){
     const body = document.querySelector('body')
-
     const div = document.createElement('div');
     div.classList.add('block-ocv');
     div.textContent = "Скрипт запущен";
     body.append(div);
 }
+
+// function removeMessage(){
+//     const body = document.querySelector('body')
+//     const div = body.querySelector('.block-ocv');
+//     if(div){
+//         body.removeChild(div);
+//     }
+// }
